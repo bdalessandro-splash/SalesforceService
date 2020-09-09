@@ -1,0 +1,50 @@
+{
+	"folders": [
+		{
+			"name": "SalesforceService",
+			"path": ".."
+		}
+	],
+	"launch": {
+		"configurations": [
+			{
+				"type": "aws-sam",
+				"request": "direct-invoke",
+				"name": "SalesforceService:UpdateSalesforceFunction",
+				"invokeTarget": {
+					"target": "template",
+					"templatePath": "SalesforceService/template.yaml",
+					"logicalId": "UpdateSalesforceFunction"
+				},
+				"lambda": {
+					"payload": {},
+					"environmentVariables": {}
+				}
+			},
+			{
+				"type": "aws-sam",
+				"request": "direct-invoke",
+				"name": "SalesforceService:app.lambda_handler (python3.8)",
+				"invokeTarget": {
+					"target": "code",
+					"projectRoot": "SalesforceService/update_salesforce",
+					"lambdaHandler": "app.lambda_handler"
+				},
+				"lambda": {
+					"runtime": "python3.8",
+					"payload": { "json": { "userId": 8}},
+					"environmentVariables": {
+						"dataUrl": "https://192.168.86.26/api/v1/getSalesforceData/",
+						"tokenUrl": "https://mc0f1hq031cplqfpr8903sykrly4.auth.marketingcloudapis.com/v2/token",
+						"clientId": "kypw18ytcxfc3ilv7cjcu4qb",
+						"clientSecret":  "G0UQdiDzSxN5udapuBppIoZY",
+						"dataExtUrl":  "https://mc0f1hq031cplqfpr8903sykrly4.rest.marketingcloudapis.com/data/v1/async/dataextensions/key:DEV_MasterSubscribers/rows"
+					}
+				}
+			}
+		]
+	},
+	"settings": {
+		"python.pythonPath": "/Library/Frameworks/Python.framework/Versions/3.8/bin/python3"
+	}
+}

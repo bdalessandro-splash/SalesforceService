@@ -1,0 +1,49 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  SalesforceService
+
+  Sample SAM Template for SalesforceService
+
+# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+Globals:
+  Function:
+    Timeout: 3
+
+Resources:
+  UpdateSalesforceFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri: update_salesforce/
+      Handler: app.lambda_handler
+      Runtime: python3.8
+      Events:
+        UpdateSalesforce:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /update
+            Method: get
+      Environment:
+        Variables:
+          dataUrl: https://192.168.86.30/api/v1/getSalesforceData/
+          tokenUrl: https://mc0f1hq031cplqfpr8903sykrly4.auth.marketingcloudapis.com/v2/token
+          clientId: kypw18ytcxfc3ilv7cjcu4qb
+          clientSecret:  G0UQdiDzSxN5udapuBppIoZY
+          dataExtUrl:  https://mc0f1hq031cplqfpr8903sykrly4.rest.marketingcloudapis.com/data/v1/async/dataextensions/key:DEV_MasterSubscribers/rows
+
+Outputs:
+  # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
+  # Find out more about other implicit resources you can reference within SAM
+  # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
+  SalesforceApi:
+    Description: "API Gateway endpoint URL for Prod stage for Salesforce function"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/update/"
+  SalesforceFunction:
+    Description: "Salesforce Lambda Function ARN"
+    # Value: !GetAtt SalesforceFunction.Arn
+    Value: Fn::GetAtt [SalesforceFunction, Arn]
+  SalesforceFunctionIamRole:
+    Description: "Implicit IAM Role created for Salesforec function"
+    # Value: !GetAtt SalesforceFunctionRole.Arn
+    Value: Fn::GetAtt [SalesforceFunctionRole, Arn]
+  
