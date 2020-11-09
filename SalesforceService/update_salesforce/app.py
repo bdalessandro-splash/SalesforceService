@@ -11,15 +11,13 @@ def lambda_handler(event, context):
         messageJson = json.loads(message)
         userId = messageJson["userId"]
 
-        # userId = 8
         url = os.environ['dataUrl'] + str(userId)
-        response = requests.get(url, verify=False)
+        requestHeaders = {'X-SPLASH-SERVICE-USER-ID': os.environ['serviceUser'], 'X-SPLASH-API-TOKEN': os.environ['serviceToken']}
+        response = requests.get(url, headers=requestHeaders,  verify=False)
         data = json.loads(response.text)
    
         ua = UserApp(data[0])
         
-        # just for testing
-        # items = {'items': [{'SpalshApplicationId': 8, 'UserId': 8, 'EmailAddress': 'bdalessandro@splashfinancial.com'}]}
         items = {"items": [ua.__dict__]}
         
         # get access token

@@ -30,6 +30,8 @@ Resources:
           clientId: kypw18ytcxfc3ilv7cjcu4qb
           clientSecret:  G0UQdiDzSxN5udapuBppIoZY
           dataExtUrl:  https://mc0f1hq031cplqfpr8903sykrly4.rest.marketingcloudapis.com/data/v1/async/dataextensions/key:DEV_MasterSubscribers/rows
+          serviceUser:  4249a9fc-daa7-4f75-ab78-47ed11a51388
+          serviceToken:  KKSC0IjCSyiqHtkpEU022ofet6nMbvwNeiMacu6v
 
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
